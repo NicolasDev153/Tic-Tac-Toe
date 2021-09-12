@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
 
-	intro();
+	introduction();
 
 	return 0;
 }
