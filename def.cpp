@@ -4,7 +4,7 @@
 using namespace std;
 
 string board[9] = { " ", " ", " ", " ", " ", " ", " ", " ", " " };
-int Player = 1;
+int player = 1;
 int position = 0;
 
 void introduction() {
@@ -82,8 +82,8 @@ bool filled_up() {
 		if (board[i] == " ") {
 			filled = false;
 		}
-		return filled;
 	}
+	return filled;
 }
 
 void draw() {
@@ -99,10 +99,59 @@ void draw() {
 }
 
 void set_position() {
-	cout << "Player " << Player << "'s (Enter between 1-9)";
+	cout << "Player " << player << "'s (Enter between 1-9)";
 	while (!(cin >> position)) {
 		cout << "Please enter valid number between (1-9)" << endl;
 		cin.clear();
 		cin.ignore();
 	}
+
+	while (board[position - 1] != " ") {
+		cout << "Oops! that position is already filled\ntry again!\n";
+		cout << "Player" << player << "'s turn (1-9): ";
+		cin >> position;
+		cout << "\n";
+	}
+
+
 }
+
+void update_board() {
+	if (player % 2 == 1) {
+		board[position - 1] = 'X';
+	} else {
+		board[position - 1] = 'O';
+   }
+}
+
+void change_player() {
+	if (player == 1) {
+		player++;
+	}
+	else {
+		player--;
+	}
+  }
+
+void take_turn() {
+	while(!is_winner() && !filled_up()) {
+
+		// Invoking the functions
+		set_position();
+		update_board();
+		change_player();
+		draw();
+	}
+}
+
+void end_game() {
+	if (is_winner) {
+		cout << "There is the winner!!!" << endl;
+	}
+   
+	else if (filled_up) {
+		cout << "There is the tie!" << endl;
+	}
+  }
+
+
